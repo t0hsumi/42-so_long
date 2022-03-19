@@ -1,5 +1,4 @@
-#include <mlx.h>
-#include <stdio.h>
+#include <so_long.h>
 
 typedef struct	s_vars {
 	void	*mlx;
