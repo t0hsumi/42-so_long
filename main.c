@@ -1,10 +1,23 @@
 #include <mlx.h>
+#include <stdio.h>
 
-int main(void){
-	void *mlx;
-	void *mlx_win;
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+}				t_vars;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	mlx_loop(mlx);
+int mouse_hook(int button, int x, int y, void *param)
+{
+	printf("x = %d, y = %d\n", x, y);
+	return (0);
+}
+
+int	main(void)
+{
+	t_vars	vars;
+
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!");
+	mlx_mouse_hook(vars.win, mouse_hook, &vars);
+	mlx_loop(vars.mlx);
 }
