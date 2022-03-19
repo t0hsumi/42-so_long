@@ -17,8 +17,11 @@ all: $(NAME)
 .c.o:
 	$(CC) -c $< -o $@ $(CFLAGS) $(DEBUG) $(INCLUDES) $(LIB)
 
-$(NAME): $(OBJS)
-	$(CC) $(OBJS) $(minilibx) $(CFLAGS) $(DEBUG) $(INCLUDES) $(LIB)
+$(minilibx):
+	make -C ./minilibx-linux
+
+$(NAME): $(OBJS) $(minilibx)
+	$(CC) $(OBJS) $(minilibx) $(CFLAGS) $(DEBUG) $(INCLUDES) $(LIB) -o $(NAME)
 
 clean:
 	rm -f $(OBJS)
@@ -26,7 +29,6 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	make fclean -C ./minilibx-linux
 
 re: fclean all
 

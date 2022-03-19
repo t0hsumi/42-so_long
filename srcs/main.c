@@ -8,6 +8,8 @@ typedef struct	s_vars {
 
 int mouse_hook(int button, int x, int y, void *param)
 {
+	(void)button;
+	(void)param;
 	printf("x = %d, y = %d\n", x, y);
 	return (0);
 }
