@@ -43,15 +43,39 @@ void	init_str(t_info *info)
 	int width;
 
 	info->mlx = xmlx_init();
-	info->mlx_win = xmlx_new_window(info->mlx, info->row_size * 64, info->col_size * 64, "so_long");
-	info->collectible = xmlx_xpm_file_to_image(info->mlx, "./img/collectible.xpm", &width, &height);
-	info->empty = xmlx_xpm_file_to_image(info->mlx, "./img/empty.xpm", &width, &height);
-	info->exit = xmlx_xpm_file_to_image(info->mlx, "./img/exit.xpm", &width, &height);
-	info->player = xmlx_xpm_file_to_image(info->mlx, "./img/player.xpm", &width, &height);
-	info->wall = xmlx_xpm_file_to_image(info->mlx, "./img/wall.xpm", &width, &height);
+	info->mlx_win = xmlx_new_window(info->mlx, info->col_size * 64, info->row_size * 64, "so_long");
+	info->image[COLLECTIBLE] = xmlx_xpm_file_to_image(info->mlx, "./img/collectible.xpm", &width, &height);
+	info->image[EMPTY] = xmlx_xpm_file_to_image(info->mlx, "./img/empty.xpm", &width, &height);
+	info->image[EXIT] = xmlx_xpm_file_to_image(info->mlx, "./img/exit.xpm", &width, &height);
+	info->image[PLAYER] = xmlx_xpm_file_to_image(info->mlx, "./img/player.xpm", &width, &height);
+	info->image[WALL] = xmlx_xpm_file_to_image(info->mlx, "./img/wall.xpm", &width, &height);
 	info->x = (ft_strchr(info->map, 'P') - info->map) % info->col_size;
 	info->y = (ft_strchr(info->map, 'P') - info->map) / info->col_size;
 	info->move_count = 0;
+}
+
+void	draw_map(t_info info)
+{
+	int	i;
+	int	x;
+	int	y;
+
+	i = -1;
+	while (info.map[++i])
+	{
+		map_to_pos(i, info.col_size, &x, &y);
+		if (info.map[i] == '0')
+			mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[EMPTY], 64 * x, 64 * y);
+		else if (info.map[i] == '1')
+			mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[WALL], 64 * x, 64 * y);
+		else if (info.map[i] == 'C')
+			mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[COLLECTIBLE], 64 * x, 64 * y);
+		else if (info.map[i] == 'E')
+			mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[EXIT], 64 * x, 64 * y);
+		else if (info.map[i] == 'P')
+			mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[EMPTY], 64 * x, 64 * y);
+	}
+	mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[PLAYER], 64 * info.x, 64 * info.y);
 }
 
 int main(int argc, char **argv)
@@ -62,9 +86,8 @@ int main(int argc, char **argv)
 	read_map(&info, argv[1]);
 	check_map(info);
 	init_str(&info);
-	printf("%s", info.map);
-	printf("(%d, %d)\n", info.x, info.y);
-	free(info.map);
+	draw_map(info);
+	mlx_loop(info.mlx);
 }
 
 /* typedef struct	s_vars { */

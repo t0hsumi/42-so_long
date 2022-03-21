@@ -13,11 +13,7 @@ typedef struct s_info
 {
 	void	*mlx;
 	void	*mlx_win;
-	void	*empty;
-	void	*wall;
-	void	*player;
-	void	*exit;
-	void	*collectible;
+	void	*image[5];
 	char	*map;
 	size_t	col_size;
 	size_t row_size;
@@ -25,6 +21,17 @@ typedef struct s_info
 	int		y;
 	int		move_count;
 }				t_info;
+
+enum
+{
+	EMPTY,
+	WALL,
+	PLAYER,
+	EXIT,
+	COLLECTIBLE
+};
+
+void	map_to_pos(int index, size_t col_size, int *x, int *y);
 
 void	check_arg(int argc, char **argv);
 void	check_map(t_info info);
