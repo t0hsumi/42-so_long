@@ -29,9 +29,9 @@ $(NAME): $(OBJS) $(minilibx) $(libft)
 	$(CC) $(OBJS) $(minilibx) $(libft) $(CFLAGS) $(DEBUG) $(INCLUDES) $(LIB) -o $(NAME)
 
 clean:
-	rm -f $(OBJS)
 	make clean -C ./minilibx-linux
 	make clean -C ./libft
+	rm -f $(OBJS)
 
 fclean: clean
 	make fclean -C ./libft
