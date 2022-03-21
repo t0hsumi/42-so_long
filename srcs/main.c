@@ -1,8 +1,22 @@
 #include "../includes/so_long.h"
 
+void	read_map(t_info *info, char *filepath)
+{
+	int	fd;
+	int	res;
+	char *line;
+
+	fd = xopen(filepath, O_RDONLY);
+	res = xget_next_line(fd, &line);
+	info->col_size = ft_strlen(line);
+}
+
 int main(int argc, char **argv)
 {
+	t_info	info;
+
 	check_arg(argc, argv);
+	read_map(&info, argv[1]);
 }
 
 /* typedef struct	s_vars { */

@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:34 by tohsumi           #+#    #+#             */
-/*   Updated: 2022/03/21 04:07:47 by user42           ###   ########.fr       */
+/*   Updated: 2022/03/21 04:39:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	no_new_line(char **line, char **memo, char *tmp, ssize_t n)
 	return (NOT_UNTIL);
 }
 
-int	get_next_line_prev(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	ssize_t			n;
 	int				flag;
@@ -120,30 +120,30 @@ int	get_next_line_prev(int fd, char **line)
 	return (flag);
 }
 
-char	*get_next_line(int fd)
-{
-	char	*tmp;
-	char	*line;
-	int		ret;
+/* char	*get_next_line(int fd) */
+/* { */
+/* 	char	*tmp; */
+/* 	char	*line; */
+/* 	int		ret; */
 
-	line = NULL;
-	ret = get_next_line_prev(fd, &tmp);
-	if (ret > 0)
-	{
-		line = ft_strjoin(tmp, "\n");
-		free(tmp);
-		return (line);
-	}
-	else if (ret == 0)
-	{
-		if (tmp[0] == '\0')
-		{
-			free(tmp);
-			tmp = NULL;
-			return (NULL);
-		}
-		return (tmp);
-	}
-	else
-		return (NULL);
-}
+/* 	line = NULL; */
+/* 	ret = get_next_line_prev(fd, &tmp); */
+/* 	if (ret > 0) */
+/* 	{ */
+/* 		line = ft_strjoin(tmp, "\n"); */
+/* 		free(tmp); */
+/* 		return (line); */
+/* 	} */
+/* 	else if (ret == 0) */
+/* 	{ */
+/* 		if (tmp[0] == '\0') */
+/* 		{ */
+/* 			free(tmp); */
+/* 			tmp = NULL; */
+/* 			return (NULL); */
+/* 		} */
+/* 		return (tmp); */
+/* 	} */
+/* 	else */
+/* 		return (NULL); */
+/* } */
