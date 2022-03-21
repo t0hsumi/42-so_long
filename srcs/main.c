@@ -2,9 +2,9 @@
 
 void	read_map(t_info *info, char *filepath)
 {
-	int	fd;
-	int	res;
-	char *line;
+	int		fd;
+	int		res;
+	char	*line;
 	char	*tmp;
 
 	fd = xopen(filepath, O_RDONLY);
@@ -39,22 +39,28 @@ void	read_map(t_info *info, char *filepath)
 
 void	init_str(t_info *info)
 {
-	int height;
-	int width;
+	int	height;
+	int	width;
 
 	info->mlx = xmlx_init();
-	info->mlx_win = xmlx_new_window(info->mlx, info->col_size * 64, info->row_size * 64, "so_long");
-	info->image[COLLECTIBLE] = xmlx_xpm_file_to_image(info->mlx, "./img/collectible.xpm", &width, &height);
-	info->image[EMPTY] = xmlx_xpm_file_to_image(info->mlx, "./img/empty.xpm", &width, &height);
-	info->image[EXIT] = xmlx_xpm_file_to_image(info->mlx, "./img/exit.xpm", &width, &height);
-	info->image[PLAYER] = xmlx_xpm_file_to_image(info->mlx, "./img/player.xpm", &width, &height);
-	info->image[WALL] = xmlx_xpm_file_to_image(info->mlx, "./img/wall.xpm", &width, &height);
+	info->mlx_win = xmlx_new_window(info->mlx, \
+	info->col_size * 64, info->row_size * 64, "so_long");
+	info->image[COLLECTIBLE] = xmlx_xpm_file_to_image(info->mlx, \
+	"./img/collectible.xpm", &width, &height);
+	info->image[EMPTY] = xmlx_xpm_file_to_image(info->mlx, \
+	"./img/empty.xpm", &width, &height);
+	info->image[EXIT] = xmlx_xpm_file_to_image(info->mlx, \
+	"./img/exit.xpm", &width, &height);
+	info->image[PLAYER] = xmlx_xpm_file_to_image(info->mlx, \
+	"./img/player.xpm", &width, &height);
+	info->image[WALL] = xmlx_xpm_file_to_image(info->mlx, \
+	"./img/wall.xpm", &width, &height);
 	info->x = (ft_strchr(info->map, 'P') - info->map) % info->col_size;
 	info->y = (ft_strchr(info->map, 'P') - info->map) / info->col_size;
 	info->move_count = 0;
 }
 
-int draw_map(t_info *info)
+int	draw_map(t_info *info)
 {
 	int	i;
 	int	x;
@@ -64,18 +70,21 @@ int draw_map(t_info *info)
 	while (info->map[++i])
 	{
 		map_to_pos(i, info->col_size, &x, &y);
-		if (info->map[i] == '0')
-			mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[EMPTY], 64 * x, 64 * y);
+		if (info->map[i] == '0' || info->map[i] == 'P')
+			mlx_put_image_to_window(info->mlx, \
+			info->mlx_win, info->image[EMPTY], 64 * x, 64 * y);
 		else if (info->map[i] == '1')
-			mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[WALL], 64 * x, 64 * y);
+			mlx_put_image_to_window(info->mlx, \
+			info->mlx_win, info->image[WALL], 64 * x, 64 * y);
 		else if (info->map[i] == 'C')
-			mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[COLLECTIBLE], 64 * x, 64 * y);
+			mlx_put_image_to_window(info->mlx, \
+			info->mlx_win, info->image[COLLECTIBLE], 64 * x, 64 * y);
 		else if (info->map[i] == 'E')
-			mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[EXIT], 64 * x, 64 * y);
-		else if (info->map[i] == 'P')
-			mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[EMPTY], 64 * x, 64 * y);
+			mlx_put_image_to_window(info->mlx, \
+			info->mlx_win, info->image[EXIT], 64 * x, 64 * y);
 	}
-	mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[PLAYER], 64 * info->x, 64 * info->y);
+	mlx_put_image_to_window(info->mlx, info->mlx_win, \
+	info->image[PLAYER], 64 * info->x, 64 * info->y);
 	return (0);
 }
 
@@ -85,76 +94,7 @@ void	clear_game(t_info *info)
 	exit(0);
 }
 
-void	player_move(int keycode, t_info *info)
-{
-	int next_x;
-	int next_y;
-	char	next_pos;
-
-	if (keycode == A)
-	{
-		next_y = info->y;
-		next_x = info->x - 1;
-	}
-	else if (keycode == D)
-	{
-		next_y = info->y;
-		next_x = info->x + 1;
-	}
-	else if (keycode == W)
-	{
-		next_x = info->x;
-		next_y = info->y - 1;
-	}
-	else
-	{
-		next_x = info->x;
-		next_y = info->y + 1;
-	}
-	next_pos = info->map[info->col_size * next_y + next_x];
-	if (next_pos == '0')
-	{
-		info->x = next_x;
-		info->y = next_y;
-		printf("%d\n", ++(info->move_count));
-	}
-	else if (next_pos == 'C' || next_pos == 'P')
-	{
-		info->x = next_x;
-		info->y = next_y;
-		info->map[info->col_size * next_y + next_x] = '0';
-		printf("%d\n", ++(info->move_count));
-	}
-	else if (next_pos == 'E')
-	{
-		printf("%d\n", ++(info->move_count));
-		clear_game(info);
-	}
-	draw_map(info);
-}
-
-void	exit_game(t_info *info)
-{
-	(void)info;
-	exit(0);
-}
-
-int	img_change(int keycode, t_info *info)
-{
-	if (keycode == A || keycode == S || keycode == D || keycode == W)
-		player_move(keycode, info);
-	else if (keycode == ESC)
-		exit_game(info);
-	return (0);
-}
-
-int	press_x(t_info *info)
-{
-	free(info->map);
-	exit(1);
-}
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_info	info;
 
@@ -167,7 +107,5 @@ int main(int argc, char **argv)
 	mlx_hook(info.mlx_win, 33, 1L << 5, press_x, &info);
 	mlx_hook(info.mlx_win, 15, 1L << 16, draw_map, &info);
 	mlx_hook(info.mlx_win, 25, 1L << 16, draw_map, &info);
-
-
 	mlx_loop(info.mlx);
 }

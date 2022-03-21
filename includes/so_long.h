@@ -36,6 +36,11 @@ enum
 # define W 119
 # define ESC 65307
 
+void	exit_game(t_info *info);
+int	press_x(t_info *info);
+int		img_change(int keycode, t_info *info);
+void	player_move(int keycode, t_info *info);
+
 void	map_to_pos(int index, size_t col_size, int *x, int *y);
 
 void	check_arg(int argc, char **argv);
