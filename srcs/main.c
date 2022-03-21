@@ -79,10 +79,73 @@ int draw_map(t_info *info)
 	return (0);
 }
 
-int	img_close(int keycode, t_info *info)
+void	clear_game(t_info *info)
 {
-	printf("%d\n", keycode);
-	mlx_destroy_image(info->mlx, info->image[PLAYER]);
+	(void)info;
+	exit(0);
+}
+
+void	player_move(int keycode, t_info *info)
+{
+	int next_x;
+	int next_y;
+
+	if (keycode == A || keycode == D)
+	{
+		next_y = info->y;
+		if (keycode == A)
+			next_x = info->x - 1;
+		else
+			next_x = info->x + 1;
+	}
+	if (keycode == W || keycode == S)
+	{
+		next_x = info->x;
+		if (keycode == W)
+			next_y = info->y - 1;
+		else
+			next_y = info->y + 1;
+	}
+	if (info->map[info->col_size * next_y + next_x] == '0')
+	{
+		info->x = next_x;
+		info->y = next_y;
+		printf("%d\n", ++(info->move_count));
+	}
+	else if (info->map[info->col_size * next_y + next_x] == 'C')
+	{
+		info->x = next_x;
+		info->y = next_y;
+		info->map[info->col_size * next_y + next_x] = '0';
+		printf("%d\n", ++(info->move_count));
+	}
+	else if (info->map[info->col_size * next_y + next_x] == 'E')
+	{
+		info->map[info->col_size * next_y + next_x] = '0';
+		clear_game(info);
+	}
+	else if (info->map[info->col_size * next_y + next_x] == 'P')
+	{
+		info->x = next_x;
+		info->y = next_y;
+		info->map[info->col_size * next_y + next_x] = '0';
+		printf("%d\n", ++(info->move_count));
+	}
+	draw_map(info);
+}
+
+void	exit_game(t_info *info)
+{
+	(void)info;
+	exit(0);
+}
+
+int	img_change(int keycode, t_info *info)
+{
+	if (keycode == A || keycode == S || keycode == D || keycode == W)
+		player_move(keycode, info);
+	else if (keycode == ESC)
+		exit_game(info);
 	return (0);
 }
 
@@ -94,8 +157,8 @@ int main(int argc, char **argv)
 	read_map(&info, argv[1]);
 	check_map(info);
 	init_str(&info);
-	mlx_loop_hook(info.mlx, draw_map, &info);
-	mlx_hook(info.mlx_win, 2, 1L<<0, img_close, &info);
+	draw_map(&info);
+	mlx_key_hook(info.mlx_win, img_change, &info);
 	mlx_loop(info.mlx);
 }
 

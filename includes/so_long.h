@@ -31,6 +31,12 @@ enum
 	COLLECTIBLE
 };
 
+# define A 97
+# define S 115
+# define D 100
+# define W 119
+# define ESC 65307
+
 void	map_to_pos(int index, size_t col_size, int *x, int *y);
 
 void	check_arg(int argc, char **argv);
