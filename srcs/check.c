@@ -5,7 +5,7 @@ int		is_wall(const char *line)
 	int	i;
 
 	i = -1;
-	while (line[i++])
+	while (line[++i])
 		if (line[i] != '1')
 			return (0);
 	return (1);
@@ -31,11 +31,11 @@ void	check_map(t_info info)
 	int	i;
 	char	c;
 
-	i = 0;
-	while (info.map[i])
+	i = -1;
+	while (info.map[++i])
 	{
 		c = info.map[i];
-		if (c != '0' || c != '1' || c != 'C' || c != 'E' || c != 'P')
+		if (c != '0' && c != '1' && c != 'C' && c != 'E' && c != 'P')
 		{
 			write(2, "Error\n\tmap must be composed of 0, 1, C, E or P", 46);
 			exit(1);

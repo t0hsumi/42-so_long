@@ -23,6 +23,7 @@ typedef struct s_info
 	size_t row_size;
 	int		x;
 	int		y;
+	int		move_count;
 }				t_info;
 
 void	check_arg(int argc, char **argv);
@@ -36,5 +37,6 @@ char	*xft_strjoin(char const *s1, char const *s2);
 int xclose(int fd);
 void	*xmlx_init();
 void	*xmlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
+void	*xmlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *height);
 
 #endif

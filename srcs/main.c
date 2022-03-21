@@ -39,8 +39,19 @@ void	read_map(t_info *info, char *filepath)
 
 void	init_str(t_info *info)
 {
+	int height;
+	int width;
+
 	info->mlx = xmlx_init();
 	info->mlx_win = xmlx_new_window(info->mlx, info->row_size * 64, info->col_size * 64, "so_long");
+	info->collectible = xmlx_xpm_file_to_image(info->mlx, "./img/collectible.xpm", &width, &height);
+	info->empty = xmlx_xpm_file_to_image(info->mlx, "./img/empty.xpm", &width, &height);
+	info->exit = xmlx_xpm_file_to_image(info->mlx, "./img/exit.xpm", &width, &height);
+	info->player = xmlx_xpm_file_to_image(info->mlx, "./img/player.xpm", &width, &height);
+	info->wall = xmlx_xpm_file_to_image(info->mlx, "./img/wall.xpm", &width, &height);
+	info->x = (ft_strchr(info->map, 'P') - info->map) % info->col_size;
+	info->y = (ft_strchr(info->map, 'P') - info->map) / info->col_size;
+	info->move_count = 0;
 }
 
 int main(int argc, char **argv)
@@ -51,6 +62,9 @@ int main(int argc, char **argv)
 	read_map(&info, argv[1]);
 	check_map(info);
 	init_str(&info);
+	printf("%s", info.map);
+	printf("(%d, %d)\n", info.x, info.y);
+	free(info.map);
 }
 
 /* typedef struct	s_vars { */
