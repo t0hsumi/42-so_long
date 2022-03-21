@@ -9,7 +9,8 @@ LIB			= -L ./minilibx-linux -lXext -lX11 -lm
 minilibx = ./minilibx-linux/libmlx_Linux.a
 libft = ./libft/libft.a
 
-SRCS = ./srcs/main.c
+SRCS = ./srcs/main.c ./srcs/check.c ./srcs/get_next_line.c \
+	   ./srcs/get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
