@@ -44,8 +44,8 @@ void	check_map(t_info info)
 	if (!ft_strchr(info.map, 'C') || !ft_strchr(info.map, 'E') \
 		|| !ft_strchr(info.map, 'P'))
 	{
-		write(2, "Error\n\tmap must contain at least 1 exit, \
-		1 collectible, and 1 starting position", 79);
+		write(2, "Error\n\tmap must contain at least 1 exit,\
+1 collectible, and 1 starting position", 79);
 		exit(1);
 	}
 	if (ft_strchr(info.map, 'P') != ft_strrchr(info.map, 'P'))
