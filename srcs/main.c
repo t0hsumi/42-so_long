@@ -89,47 +89,46 @@ void	player_move(int keycode, t_info *info)
 {
 	int next_x;
 	int next_y;
+	char	next_pos;
 
-	if (keycode == A || keycode == D)
+	if (keycode == A)
 	{
 		next_y = info->y;
-		if (keycode == A)
-			next_x = info->x - 1;
-		else
-			next_x = info->x + 1;
+		next_x = info->x - 1;
 	}
-	if (keycode == W || keycode == S)
+	else if (keycode == D)
+	{
+		next_y = info->y;
+		next_x = info->x + 1;
+	}
+	else if (keycode == W)
 	{
 		next_x = info->x;
-		if (keycode == W)
-			next_y = info->y - 1;
-		else
-			next_y = info->y + 1;
+		next_y = info->y - 1;
 	}
-	if (info->map[info->col_size * next_y + next_x] == '0')
+	else
+	{
+		next_x = info->x;
+		next_y = info->y + 1;
+	}
+	next_pos = info->map[info->col_size * next_y + next_x];
+	if (next_pos == '0')
 	{
 		info->x = next_x;
 		info->y = next_y;
 		printf("%d\n", ++(info->move_count));
 	}
-	else if (info->map[info->col_size * next_y + next_x] == 'C')
+	else if (next_pos == 'C' || next_pos == 'P')
 	{
 		info->x = next_x;
 		info->y = next_y;
 		info->map[info->col_size * next_y + next_x] = '0';
 		printf("%d\n", ++(info->move_count));
 	}
-	else if (info->map[info->col_size * next_y + next_x] == 'E')
+	else if (next_pos == 'E')
 	{
-		info->map[info->col_size * next_y + next_x] = '0';
+		printf("%d\n", ++(info->move_count));
 		clear_game(info);
-	}
-	else if (info->map[info->col_size * next_y + next_x] == 'P')
-	{
-		info->x = next_x;
-		info->y = next_y;
-		info->map[info->col_size * next_y + next_x] = '0';
-		printf("%d\n", ++(info->move_count));
 	}
 	draw_map(info);
 }
@@ -161,26 +160,3 @@ int main(int argc, char **argv)
 	mlx_key_hook(info.mlx_win, img_change, &info);
 	mlx_loop(info.mlx);
 }
-
-/* typedef struct	s_vars { */
-/* 	void	*mlx; */
-/* 	void	*win; */
-/* }				t_vars; */
-
-/* int mouse_hook(int button, int x, int y, void *param) */
-/* { */
-/* 	(void)button; */
-/* 	(void)param; */
-/* 	printf("x = %d, y = %d\n", x, y); */
-/* 	return (0); */
-/* } */
-
-/* int	main(void) */
-/* { */
-/* 	t_vars	vars; */
-
-/* 	vars.mlx = mlx_init(); */
-/* 	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!"); */
-/* 	mlx_mouse_hook(vars.win, mouse_hook, &vars); */
-/* 	mlx_loop(vars.mlx); */
-/* } */
