@@ -54,28 +54,36 @@ void	init_str(t_info *info)
 	info->move_count = 0;
 }
 
-void	draw_map(t_info info)
+int draw_map(t_info *info)
 {
 	int	i;
 	int	x;
 	int	y;
 
 	i = -1;
-	while (info.map[++i])
+	while (info->map[++i])
 	{
-		map_to_pos(i, info.col_size, &x, &y);
-		if (info.map[i] == '0')
-			mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[EMPTY], 64 * x, 64 * y);
-		else if (info.map[i] == '1')
-			mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[WALL], 64 * x, 64 * y);
-		else if (info.map[i] == 'C')
-			mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[COLLECTIBLE], 64 * x, 64 * y);
-		else if (info.map[i] == 'E')
-			mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[EXIT], 64 * x, 64 * y);
-		else if (info.map[i] == 'P')
-			mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[EMPTY], 64 * x, 64 * y);
+		map_to_pos(i, info->col_size, &x, &y);
+		if (info->map[i] == '0')
+			mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[EMPTY], 64 * x, 64 * y);
+		else if (info->map[i] == '1')
+			mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[WALL], 64 * x, 64 * y);
+		else if (info->map[i] == 'C')
+			mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[COLLECTIBLE], 64 * x, 64 * y);
+		else if (info->map[i] == 'E')
+			mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[EXIT], 64 * x, 64 * y);
+		else if (info->map[i] == 'P')
+			mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[EMPTY], 64 * x, 64 * y);
 	}
-	mlx_put_image_to_window(info.mlx, info.mlx_win, info.image[PLAYER], 64 * info.x, 64 * info.y);
+	mlx_put_image_to_window(info->mlx, info->mlx_win, info->image[PLAYER], 64 * info->x, 64 * info->y);
+	return (0);
+}
+
+int	img_close(int keycode, t_info *info)
+{
+	printf("%d\n", keycode);
+	mlx_destroy_image(info->mlx, info->image[PLAYER]);
+	return (0);
 }
 
 int main(int argc, char **argv)
@@ -86,7 +94,8 @@ int main(int argc, char **argv)
 	read_map(&info, argv[1]);
 	check_map(info);
 	init_str(&info);
-	draw_map(info);
+	mlx_loop_hook(info.mlx, draw_map, &info);
+	mlx_hook(info.mlx_win, 2, 1L<<0, img_close, &info);
 	mlx_loop(info.mlx);
 }
 
