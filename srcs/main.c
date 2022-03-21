@@ -169,30 +169,5 @@ int main(int argc, char **argv)
 	mlx_hook(info.mlx_win, 25, 1L << 16, draw_map, &info);
 
 
-	mlx_hook(info.mlx_win, 25, 0L, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 0, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 1, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 2, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 3, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 4, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 5, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 6, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 7, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 8, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 9, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 10, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 11, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 12, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 13, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 14, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 15, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 17, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 18, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 19, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 20, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 21, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 22, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 23, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 24, draw_map, &info);
 	mlx_loop(info.mlx);
 }
