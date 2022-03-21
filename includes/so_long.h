@@ -25,7 +25,13 @@ typedef struct s_info
 }				t_info;
 
 void	check_arg(int argc, char **argv);
+void	check_map(t_info info);
+int		is_wall(const char *line);
+
 int	xopen(const char *pathname, int flags);
 int	xget_next_line(int fd, char **line);
+char	*xft_strdup(const char *s1);
+char	*xft_strjoin(char const *s1, char const *s2);
+int xclose(int fd);
 
 #endif

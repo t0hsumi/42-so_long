@@ -13,6 +13,16 @@ int	xopen(const char *pathname, int flags)
 	return (fd);
 }
 
+int xclose(int fd)
+{
+	if (close(fd) == -1)
+	{
+		perror("close");
+		exit(1);
+	}
+	return (0);
+}
+
 int	xget_next_line(int fd, char **line)
 {
 	int	res;
@@ -21,6 +31,33 @@ int	xget_next_line(int fd, char **line)
 	if (res == -1)
 	{
 		perror("get_next_line");
+		exit(1);
+	}
+	return (res);
+}
+
+char	*xft_strdup(const char *s1)
+{
+	char	*ptr;
+
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (!ptr)
+	{
+		perror("ft_strdup");
+		exit(1);
+	}
+	ft_memcpy(ptr, s1, ft_strlen(s1) + 1);
+	return (ptr);
+}
+
+char	*xft_strjoin(char const *s1, char const *s2)
+{
+	char	*res;
+
+	res = ft_strjoin(s1, s2);
+	if (!res)
+	{
+		perror("ft_strjoin");
 		exit(1);
 	}
 	return (res);
