@@ -15,6 +15,7 @@ void	read_map(t_info *info, char *filepath)
 		exit(1);
 	}
 	info->col_size = ft_strlen(line);
+	info->row_size = 1;
 	info->map = xft_strdup(line);
 	free(line);
 	while (res)
@@ -26,6 +27,7 @@ void	read_map(t_info *info, char *filepath)
 			write(2, "Error\n\tInvalid map", 18);
 			exit(1);
 		}
+		info->row_size++;
 		tmp = xft_strdup(info->map);
 		free(info->map);
 		info->map = xft_strjoin(tmp, line);
@@ -35,6 +37,12 @@ void	read_map(t_info *info, char *filepath)
 	xclose(fd);
 }
 
+void	init_str(t_info *info)
+{
+	info->mlx = xmlx_init();
+	info->mlx_win = xmlx_new_window(info->mlx, info->row_size * 64, info->col_size * 64, "so_long");
+}
+
 int main(int argc, char **argv)
 {
 	t_info	info;
@@ -42,6 +50,7 @@ int main(int argc, char **argv)
 	check_arg(argc, argv);
 	read_map(&info, argv[1]);
 	check_map(info);
+	init_str(&info);
 }
 
 /* typedef struct	s_vars { */

@@ -13,13 +13,14 @@ typedef struct s_info
 {
 	void	*mlx;
 	void	*mlx_win;
-	void	*ground;
+	void	*empty;
 	void	*wall;
 	void	*player;
 	void	*exit;
 	void	*collectible;
 	char	*map;
 	size_t	col_size;
+	size_t row_size;
 	int		x;
 	int		y;
 }				t_info;
@@ -33,5 +34,7 @@ int	xget_next_line(int fd, char **line);
 char	*xft_strdup(const char *s1);
 char	*xft_strjoin(char const *s1, char const *s2);
 int xclose(int fd);
+void	*xmlx_init();
+void	*xmlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
 
 #endif

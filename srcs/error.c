@@ -62,3 +62,29 @@ char	*xft_strjoin(char const *s1, char const *s2)
 	}
 	return (res);
 }
+
+void	*xmlx_init()
+{
+	void	*res;
+
+	res = mlx_init();
+	if (!res)
+	{
+		perror("mlx_init");
+		exit(1);
+	}
+	return (res);
+}
+
+void	*xmlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title)
+{
+	void	*res;
+
+	res = mlx_new_window(mlx_ptr, size_x, size_y, title);
+	if (!res)
+	{
+		perror("mlx_new_window");
+		exit(1);
+	}
+	return (res);
+}
