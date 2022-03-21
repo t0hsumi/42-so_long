@@ -1,6 +1,6 @@
 #include "../includes/so_long.h"
 
-int		is_wall(const char *line)
+int	is_wall(const char *line)
 {
 	int	i;
 
@@ -18,8 +18,8 @@ void	check_arg(int argc, char **argv)
 		write(2, "Error\n\tinvalid number of argument", 33);
 		exit(1);
 	}
-	if ((ft_strlen(argv[1]) < 4) || !ft_strchr(argv[1], '.') ||
-		ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", 5))
+	if ((ft_strlen(argv[1]) < 4) || !ft_strchr(argv[1], '.')
+		|| ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", 5))
 	{
 		write(2, "Error\n\tSecond argumant must be *.ber", 36);
 		exit(1);
@@ -28,7 +28,7 @@ void	check_arg(int argc, char **argv)
 
 void	check_map(t_info info)
 {
-	int	i;
+	int		i;
 	char	c;
 
 	i = -1;
@@ -41,9 +41,11 @@ void	check_map(t_info info)
 			exit(1);
 		}
 	}
-	if (!ft_strchr(info.map, 'C') || !ft_strchr(info.map, 'E') || !ft_strchr(info.map, 'P'))
+	if (!ft_strchr(info.map, 'C') || !ft_strchr(info.map, 'E') \
+		|| !ft_strchr(info.map, 'P'))
 	{
-		write(2, "Error\n\tmap must contain at least 1 exit, 1 collectible, and 1 starting position", 79);
+		write(2, "Error\n\tmap must contain at least 1 exit, \
+		1 collectible, and 1 starting position", 79);
 		exit(1);
 	}
 	if (ft_strchr(info.map, 'P') != ft_strrchr(info.map, 'P'))
