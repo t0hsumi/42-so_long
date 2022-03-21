@@ -3,10 +3,11 @@ NAME = so_long
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 DEBUG		= -g -fsanitize=address
-INCLUDES	= -I./includes -I./minilibx-linux
+INCLUDES	= -I./includes -I./minilibx-linux -I./libft
 LIB			= -L ./minilibx-linux -lXext -lX11 -lm
 
 minilibx = ./minilibx-linux/libmlx_Linux.a
+libft = ./libft/libft.a
 
 SRCS = ./srcs/main.c
 
@@ -20,14 +21,19 @@ all: $(NAME)
 $(minilibx):
 	make -C ./minilibx-linux
 
-$(NAME): $(OBJS) $(minilibx)
-	$(CC) $(OBJS) $(minilibx) $(CFLAGS) $(DEBUG) $(INCLUDES) $(LIB) -o $(NAME)
+$(libft):
+	make -C ./libft
+
+$(NAME): $(OBJS) $(minilibx) $(libft)
+	$(CC) $(OBJS) $(minilibx) $(libft) $(CFLAGS) $(DEBUG) $(INCLUDES) $(LIB) -o $(NAME)
 
 clean:
 	rm -f $(OBJS)
 	make clean -C ./minilibx-linux
+	make clean -C ./libft
 
 fclean: clean
+	make fclean -C ./libft
 	rm -f $(NAME)
 
 re: fclean all
