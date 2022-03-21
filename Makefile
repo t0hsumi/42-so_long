@@ -11,7 +11,7 @@ libft = ./libft/libft.a
 
 SRCS = ./srcs/main.c ./srcs/check.c ./srcs/get_next_line.c \
 	   ./srcs/get_next_line_utils.c ./srcs/error.c ./srcs/utils.c \
-	   ./srcs/error_mlx.c
+	   ./srcs/error_mlx.c ./srcs/key_move.c
 
 OBJS = $(SRCS:.c=.o)
 
