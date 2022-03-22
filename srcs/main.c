@@ -70,7 +70,7 @@ int	draw_map(t_info *info)
 	while (info->map[++i])
 	{
 		map_to_pos(i, info->col_size, &x, &y);
-		if (info->map[i] == '0' || info->map[i] == 'P')
+		if (info->map[i] == '0')
 			mlx_put_image_to_window(info->mlx, \
 			info->mlx_win, info->image[EMPTY], 64 * x, 64 * y);
 		else if (info->map[i] == '1')
@@ -82,9 +82,10 @@ int	draw_map(t_info *info)
 		else if (info->map[i] == 'E')
 			mlx_put_image_to_window(info->mlx, \
 			info->mlx_win, info->image[EXIT], 64 * x, 64 * y);
+		else if (info->map[i] == 'P')
+			mlx_put_image_to_window(info->mlx, \
+			info->mlx_win, info->image[PLAYER], 64 * x, 64 * y);
 	}
-	mlx_put_image_to_window(info->mlx, info->mlx_win, \
-	info->image[PLAYER], 64 * info->x, 64 * info->y);
 	return (0);
 }
 
@@ -102,10 +103,9 @@ int	main(int argc, char **argv)
 	read_map(&info, argv[1]);
 	check_map(info);
 	init_str(&info);
-	draw_map(&info);
 	mlx_key_hook(info.mlx_win, img_change, &info);
+	mlx_loop_hook(info.mlx, draw_map, &info);
 	mlx_hook(info.mlx_win, 33, 1L << 5, press_x, &info);
 	mlx_hook(info.mlx_win, 15, 1L << 16, draw_map, &info);
-	mlx_hook(info.mlx_win, 25, 1L << 16, draw_map, &info);
 	mlx_loop(info.mlx);
 }

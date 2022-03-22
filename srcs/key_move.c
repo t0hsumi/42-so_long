@@ -48,17 +48,20 @@ void	player_move(int keycode, t_info *info)
 		next_y = info->y + 1;
 	}
 	next_pos = info->map[info->col_size * next_y + next_x];
+	if (next_pos != '1')
+		info->map[info->col_size * info->y + info->x] = '0';
 	if (next_pos == '0')
 	{
 		info->x = next_x;
 		info->y = next_y;
+		info->map[info->col_size * next_y + next_x] = 'P';
 		printf("%d\n", ++(info->move_count));
 	}
-	else if (next_pos == 'C' || next_pos == 'P')
+	else if (next_pos == 'C')
 	{
 		info->x = next_x;
 		info->y = next_y;
-		info->map[info->col_size * next_y + next_x] = '0';
+		info->map[info->col_size * next_y + next_x] = 'P';
 		printf("%d\n", ++(info->move_count));
 	}
 	else if (next_pos == 'E')

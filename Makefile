@@ -2,7 +2,7 @@ NAME = so_long
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
-DEBUG		= -g -fsanitize=address
+DEBUG		= #-g -fsanitize=address
 INCLUDES	= -I./includes -I./minilibx-linux -I./libft
 LIB			= -L ./minilibx-linux -lXext -lX11 -lm
 
