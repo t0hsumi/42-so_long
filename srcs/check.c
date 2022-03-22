@@ -19,14 +19,14 @@ void	check_arg(int argc, char **argv)
 		exit(1);
 	}
 	if ((ft_strlen(argv[1]) < 4) || !ft_strchr(argv[1], '.')
-			|| ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", 5))
+		|| ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", 5))
 	{
 		write(2, "Error\n\tSecond argumant must be *.ber\n", 37);
 		exit(1);
 	}
 }
 
-void	check_map(t_info info)
+static void	is_valid_component(t_info info)
 {
 	int		i;
 	char	c;
@@ -43,6 +43,11 @@ void	check_map(t_info info)
 			exit(1);
 		}
 	}
+}
+
+void	check_map(t_info info)
+{
+	is_valid_component(info);
 	if (!ft_strchr(info.map, 'C') || !ft_strchr(info.map, 'E') \
 			|| !ft_strchr(info.map, 'P'))
 	{

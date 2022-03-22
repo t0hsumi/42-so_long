@@ -1,6 +1,6 @@
 #include "../includes/so_long.h"
 
-int exit_game(t_info *info)
+int	exit_game(t_info *info)
 {
 	int	i;
 
@@ -28,32 +28,10 @@ int	img_change(int keycode, t_info *info)
 	return (0);
 }
 
-void	player_move(int keycode, t_info *info)
+static void	modify_state(t_info *info, int next_x, int next_y)
 {
-	int		next_x;
-	int		next_y;
 	char	next_pos;
 
-	if (keycode == A)
-	{
-		next_y = info->y;
-		next_x = info->x - 1;
-	}
-	else if (keycode == D)
-	{
-		next_y = info->y;
-		next_x = info->x + 1;
-	}
-	else if (keycode == W)
-	{
-		next_x = info->x;
-		next_y = info->y - 1;
-	}
-	else
-	{
-		next_x = info->x;
-		next_y = info->y + 1;
-	}
 	next_pos = info->map[info->col_size * next_y + next_x];
 	if (next_pos != '1')
 		info->map[info->col_size * info->y + info->x] = '0';
@@ -76,5 +54,33 @@ void	player_move(int keycode, t_info *info)
 		printf("%d\n", ++(info->move_count));
 		clear_game(info);
 	}
+}
+
+void	player_move(int keycode, t_info *info)
+{
+	int		next_x;
+	int		next_y;
+
+	if (keycode == A)
+	{
+		next_y = info->y;
+		next_x = info->x - 1;
+	}
+	else if (keycode == D)
+	{
+		next_y = info->y;
+		next_x = info->x + 1;
+	}
+	else if (keycode == W)
+	{
+		next_x = info->x;
+		next_y = info->y - 1;
+	}
+	else
+	{
+		next_x = info->x;
+		next_y = info->y + 1;
+	}
+	modify_state(info, next_x, next_y);
 	draw_map(info);
 }
