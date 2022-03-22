@@ -27,6 +27,10 @@ void	read_map(t_info *info, char *filepath)
 		if (info->col_size != ft_strlen(line) || (res == 0 && !is_wall(line))
 			|| (line[0] != '1' || line[ft_strlen(line) - 1] != '1'))
 		{
+			free(line);
+			line = NULL;
+			free(info->map);
+			info->map = NULL;
 			write(2, "Error\n\tInvalid map\n", 19);
 			exit(1);
 		}
@@ -97,7 +101,20 @@ int	draw_map(t_info *info)
 
 void	clear_game(t_info *info)
 {
-	(void)info;
+	int	i;
+
+	free(info->map);
+	info->map = NULL;
+	mlx_destroy_window(info->mlx, info->mlx_win);
+	info->mlx_win = NULL;
+	i = 0;
+	while (i < 5)
+	{
+		mlx_destroy_image(info->mlx, info->image[i]);
+		info->image[i++] = NULL;
+	}
+	mlx_destroy_display(info->mlx);
+	info->mlx = NULL;
 	exit(0);
 }
 

@@ -49,7 +49,7 @@ void	check_map(t_info info)
 		free(info.map);
 		info.map = NULL;
 		write(2, "Error\n\tmap must contain at least 1 exit,\
-				1 collectible, and 1 starting position\n", 80);
+1 collectible, and 1 starting position\n", 80);
 		exit(1);
 	}
 	if (ft_strchr(info.map, 'P') != ft_strrchr(info.map, 'P'))
