@@ -1,14 +1,16 @@
 #include "../includes/so_long.h"
 
-void	exit_game(t_info *info)
+int exit_game(t_info *info)
 {
-	(void)info;
-	exit(0);
-}
+	int	i;
 
-int	press_x(t_info *info)
-{
 	free(info->map);
+	info->map = NULL;
+	mlx_destroy_window(info->mlx, info->mlx_win);
+	i = 0;
+	while (i < 5)
+		mlx_destroy_image(info->mlx, info->image[i++]);
+	mlx_destroy_display(info->mlx);
 	exit(1);
 }
 

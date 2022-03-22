@@ -11,28 +11,34 @@ void	read_map(t_info *info, char *filepath)
 	res = xget_next_line(fd, &line);
 	if (res == 0 || !is_wall(line))
 	{
-		write(2, "Error\n\tInvalid map", 18);
+		free(line);
+		line = NULL;
+		write(2, "Error\n\tInvalid map\n", 19);
 		exit(1);
 	}
 	info->col_size = ft_strlen(line);
 	info->row_size = 1;
 	info->map = xft_strdup(line);
 	free(line);
+	line = NULL;
 	while (res)
 	{
 		res = xget_next_line(fd, &line);
 		if (info->col_size != ft_strlen(line) || (res == 0 && !is_wall(line))
 			|| (line[0] != '1' || line[ft_strlen(line) - 1] != '1'))
 		{
-			write(2, "Error\n\tInvalid map", 18);
+			write(2, "Error\n\tInvalid map\n", 19);
 			exit(1);
 		}
 		info->row_size++;
 		tmp = xft_strdup(info->map);
 		free(info->map);
+		info->map = NULL;
 		info->map = xft_strjoin(tmp, line);
 		free(tmp);
+		tmp = NULL;
 		free(line);
+		line = NULL;
 	}
 	xclose(fd);
 }
@@ -104,8 +110,8 @@ int	main(int argc, char **argv)
 	check_map(info);
 	init_str(&info);
 	mlx_key_hook(info.mlx_win, img_change, &info);
-	mlx_loop_hook(info.mlx, draw_map, &info);
-	mlx_hook(info.mlx_win, 33, 1L << 5, press_x, &info);
+	mlx_hook(info.mlx_win, 33, 1L << 5, exit_game, &info);
 	mlx_hook(info.mlx_win, 15, 1L << 16, draw_map, &info);
+	mlx_loop_hook(info.mlx, draw_map, &info);
 	mlx_loop(info.mlx);
 }
