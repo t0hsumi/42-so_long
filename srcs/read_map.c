@@ -45,7 +45,7 @@ static void	read_next(t_info *info, int fd)
 		free(info->map);
 		info->map = NULL;
 		info->map = xft_strjoin(tmp, line);
-		my_free(line, tmp, NULL, NULL);
+		my_free(&line, &tmp, NULL, NULL);
 	}
 }
 

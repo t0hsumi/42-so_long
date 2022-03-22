@@ -40,18 +40,18 @@ static void	modify_state(t_info *info, int next_x, int next_y)
 		info->x = next_x;
 		info->y = next_y;
 		info->map[info->col_size * next_y + next_x] = 'P';
-		printf("%d\n", ++(info->move_count));
+		ft_putnbr_fd(1, ++(info->move_count));
 	}
 	else if (next_pos == 'C')
 	{
 		info->x = next_x;
 		info->y = next_y;
 		info->map[info->col_size * next_y + next_x] = 'P';
-		printf("%d\n", ++(info->move_count));
+		ft_putnbr_fd(1, ++(info->move_count));
 	}
 	else if (next_pos == 'E')
 	{
-		printf("%d\n", ++(info->move_count));
+		ft_putnbr_fd(1, ++(info->move_count));
 		clear_game(info);
 	}
 }
