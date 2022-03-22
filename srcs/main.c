@@ -128,7 +128,6 @@ int	main(int argc, char **argv)
 	init_str(&info);
 	mlx_key_hook(info.mlx_win, img_change, &info);
 	mlx_hook(info.mlx_win, 33, 1L << 5, exit_game, &info);
-	mlx_hook(info.mlx_win, 15, 1L << 16, draw_map, &info);
 	mlx_loop_hook(info.mlx, draw_map, &info);
 	mlx_loop(info.mlx);
 }
