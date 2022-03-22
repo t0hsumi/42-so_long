@@ -40,20 +40,22 @@ static void	modify_state(t_info *info, int next_x, int next_y)
 		info->x = next_x;
 		info->y = next_y;
 		info->map[info->col_size * next_y + next_x] = 'P';
-		ft_putnbr_fd(1, ++(info->move_count));
+		ft_putnbr_fd(++(info->move_count), 1);
 	}
 	else if (next_pos == 'C')
 	{
 		info->x = next_x;
 		info->y = next_y;
 		info->map[info->col_size * next_y + next_x] = 'P';
-		ft_putnbr_fd(1, ++(info->move_count));
+		ft_putnbr_fd(++(info->move_count), 1);
 	}
 	else if (next_pos == 'E')
 	{
-		ft_putnbr_fd(1, ++(info->move_count));
+		ft_putnbr_fd(++(info->move_count), 1);
 		clear_game(info);
 	}
+	if (next_pos == 'E' || next_pos == '0' || next_pos == 'C')
+		write(1, "\n", 1);
 }
 
 void	player_move(int keycode, t_info *info)
