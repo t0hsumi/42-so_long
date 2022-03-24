@@ -89,5 +89,4 @@ void	player_move(int keycode, t_info *info)
 		next_y = info->y + 1;
 	}
 	modify_state(info, next_x, next_y);
-	draw_map(info);
 }
