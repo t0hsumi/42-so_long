@@ -41,10 +41,8 @@ static void	read_next(t_info *info, int fd)
 			exit(1);
 		}
 		info->row_size++;
-		tmp = xft_strdup(info->map);
-		free(info->map);
-		info->map = NULL;
-		info->map = xft_strjoin(tmp, line);
+		tmp = info->map;
+		info->map = xft_strjoin(info->map, line);
 		my_free(&line, &tmp, NULL, NULL);
 	}
 }
