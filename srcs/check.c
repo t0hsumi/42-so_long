@@ -18,7 +18,7 @@ void	check_arg(int argc, char **argv)
 		write(2, "Error\n\tinvalid number of argument\n", 34);
 		exit(1);
 	}
-	if ((ft_strlen(argv[1]) < 4) || !ft_strchr(argv[1], '.')
+	if ((ft_strlen(argv[1]) < 5) || !ft_strchr(argv[1], '.')
 		|| ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", 5))
 	{
 		write(2, "Error\n\tSecond argumant must be *.ber\n", 37);
