@@ -10,9 +10,9 @@ void	count_collectible(t_info *info)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	info->collectible_num = 0;
-	while (info->map[i])
+	while (info->map[++i])
 		if (info->map[i] == 'C')
 			info->collectible_num++;
 }

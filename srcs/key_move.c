@@ -35,17 +35,29 @@ static void	modify_state(t_info *info, int next_x, int next_y)
 	next_pos = info->map[info->col_size * next_y + next_x];
 	if (next_pos != '1')
 		info->map[info->col_size * info->y + info->x] = '0';
-	if (next_pos == '0' || next_pos == 'C')
+	if (next_pos == '0')
 	{
 		info->x = next_x;
 		info->y = next_y;
 		info->map[info->col_size * next_y + next_x] = 'P';
 		ft_putnbr_fd(++(info->move_count), 1);
 	}
+	if (next_pos == 'C')
+	{
+		info->x = next_x;
+		info->y = next_y;
+		info->collectible_num--;
+		info->map[info->col_size * next_y + next_x] = 'P';
+		ft_putnbr_fd(++(info->move_count), 1);
+	}
 	else if (next_pos == 'E')
 	{
-		ft_putnbr_fd(++(info->move_count), 1);
-		clear_game(info);
+		if (info->collectible_num == 0)
+		{
+			ft_putnbr_fd(++(info->move_count), 1);
+			clear_game(info);
+		}
+		info->map[info->col_size * info->y + info->x] = 'P';
 	}
 	if (next_pos == 'E' || next_pos == '0' || next_pos == 'C')
 		write(1, "\n", 1);
