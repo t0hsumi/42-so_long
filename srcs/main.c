@@ -21,6 +21,7 @@ void	init_str(t_info *info)
 	info->x = (ft_strchr(info->map, 'P') - info->map) % info->col_size;
 	info->y = (ft_strchr(info->map, 'P') - info->map) / info->col_size;
 	info->move_count = 0;
+	count_collectible(info);
 }
 
 int	draw_map(t_info *info)
@@ -79,6 +80,7 @@ int	main(int argc, char **argv)
 	read_map(&info, argv[1]);
 	check_map(info);
 	init_str(&info);
+	printf("%d\n", info.collectible_num);
 	mlx_key_hook(info.mlx_win, img_change, &info);
 	mlx_hook(info.mlx_win, 33, 1L << 5, exit_game, &info);
 	mlx_loop_hook(info.mlx, draw_map, &info);

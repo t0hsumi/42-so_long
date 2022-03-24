@@ -19,6 +19,7 @@ typedef struct s_info
 	int		x;
 	int		y;
 	int		move_count;
+	int		collectible_num;
 }				t_info;
 
 enum
@@ -35,6 +36,8 @@ enum
 # define D 100
 # define W 119
 # define ESC 65307
+
+void	count_collectible(t_info *info);
 
 void	clear_game(t_info *info);
 int		draw_map(t_info *info);
