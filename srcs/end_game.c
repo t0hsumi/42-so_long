@@ -4,6 +4,8 @@ void	clear_game(t_info *info)
 {
 	int	i;
 
+	ft_putnbr_fd(++(info->move_count), 1);
+	write(1, "\n", 1);
 	free(info->map);
 	info->map = NULL;
 	mlx_destroy_window(info->mlx, info->mlx_win);
