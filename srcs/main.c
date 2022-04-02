@@ -80,7 +80,6 @@ int	main(int argc, char **argv)
 	read_map(&info, argv[1]);
 	check_map(info);
 	init_str(&info);
-	/* mlx_key_hook(info.mlx_win, img_change, &info); */
 	mlx_hook(info.mlx_win, 02, 1L << 0, img_change, &info);
 	mlx_hook(info.mlx_win, 33, 1L << 5, exit_game, &info);
 	mlx_loop_hook(info.mlx, draw_map, &info);
